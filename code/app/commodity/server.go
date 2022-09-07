@@ -1,12 +1,14 @@
 package main
 
 import (
+	"github.com/brahma-adshonor/micro_service/code/app/commodity/model"
+
 	"fmt"
 	"net/http"
 )
 
 func commodityHandler(w http.ResponseWriter, r *http.Request) {
-
+	type m model.Model
 }
 
 func main() {
