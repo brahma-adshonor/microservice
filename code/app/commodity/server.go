@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/brahma-adshonor/micro_service/code/app/commodity/model"
 	"net/http"
 
+	"github.com/brahma-adshonor/microservice/code/app/commodity/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
