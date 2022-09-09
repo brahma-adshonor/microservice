@@ -74,6 +74,6 @@ type ProductResponse struct {
 func main() {
 	http.HandleFunc("/getProduct", getProduct)
 	http.HandleFunc("/hello", hello)
-	fmt.Println("staring discount service on port 7000")
+	fmt.Println("staring discount service on port 8090")
 	http.ListenAndServe(":8090", nil)
 }
