@@ -68,7 +68,7 @@ type ProductResponse struct {
 	Ret      int
 	Msg      string
 	Err      error
-	Products []model.Product
+	Products []model.TProduct
 }
 
 func main() {

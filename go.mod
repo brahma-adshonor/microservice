@@ -1,4 +1,4 @@
-module github.com/brahma-adshonor/micro_service
+module github.com/brahma-adshonor/microservice
 
 go 1.18
 
