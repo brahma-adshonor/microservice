@@ -1,4 +1,4 @@
-CREATE TABLE `coupon`
+CREATE TABLE `t_coupon`
 (
     `id`           int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `coupon_name`  varchar(255) NOT NULL COMMENT '优惠卷名称',
