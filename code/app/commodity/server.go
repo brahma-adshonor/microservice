@@ -50,12 +50,12 @@ func getProduct(w http.ResponseWriter, r *http.Request) {
 
 func init() {
 	db, err = gorm.Open(mysql.New(mysql.Config{
-		DSN:                       "gorm:password@tcp(127.0.0.1:3306)/mall?charset=utf8&parseTime=True&loc=Local", // data source name
-		DefaultStringSize:         256,                                                                            // default size for string fields
-		DisableDatetimePrecision:  true,                                                                           // disable datetime precision, which not supported before MySQL 5.6
-		DontSupportRenameIndex:    true,                                                                           // drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
-		DontSupportRenameColumn:   true,                                                                           // `change` when rename column, rename column not supported before MySQL 8, MariaDB
-		SkipInitializeWithVersion: false,                                                                          // auto configure based on currently MySQL version
+		DSN:                       "gormuser:gormpassword@tcp(127.0.0.1:3306)/db_commodity?charset=utf8&parseTime=True&loc=Local", // data source name
+		DefaultStringSize:         256,                                                                                            // default size for string fields
+		DisableDatetimePrecision:  true,                                                                                           // disable datetime precision, which not supported before MySQL 5.6
+		DontSupportRenameIndex:    true,                                                                                           // drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+		DontSupportRenameColumn:   true,                                                                                           // `change` when rename column, rename column not supported before MySQL 8, MariaDB
+		SkipInitializeWithVersion: false,                                                                                          // auto configure based on currently MySQL version
 	}), &gorm.Config{})
 }
 

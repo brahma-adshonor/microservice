@@ -1,4 +1,4 @@
-CREATE TABLE `t_products`
+CREATE TABLE `t_product`
 (
     `id`               int(32)      NOT NULL AUTO_INCREMENT COMMENT '商品id',
     `name`             varchar(255) NOT NULL COMMENT '商品名称',
