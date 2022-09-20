@@ -22,6 +22,7 @@ type TOrder struct {
 	PayAmount    int32     `gorm:"column:pay_amount;not null" json:"pay_amount"`                           // 应付金额（实际支付金额）
 	CouponID     int32     `gorm:"column:coupon_id;not null" json:"coupon_id"`                             // 优惠券id
 	CouponAmount int32     `gorm:"column:coupon_amount;not null" json:"coupon_amount"`                     // 优惠券抵扣金额
+	UserID       int32     `gorm:"column:user_id;not null" json:"user_id"`                                 // 用户id
 	PayAt        time.Time `gorm:"column:pay_at;not null" json:"pay_at"`                                   // 支付时间
 	CreatedAt    time.Time `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP" json:"created_at"` // 创建时间
 	UpdatedAt    time.Time `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP" json:"updated_at"` // 更新时间
