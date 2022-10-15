@@ -33,3 +33,19 @@ func (t *JWTTokenGen) GenerateToken(userID string, expire time.Duration) (string
 
 	return tkn.SignedString([]byte(t.secKey))
 }
+
+func (t *JWTTokenGen) ParseToken(token string) (string, error) {
+	tkn, err := jwt.ParseWithClaims(token, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(t.secKey), nil
+	})
+	if err != nil {
+		return "", err
+	}
+
+	claims, ok := tkn.Claims.(*jwt.RegisteredClaims)
+	if !ok {
+		return "", err
+	}
+
+	return claims.Subject, nil
+}

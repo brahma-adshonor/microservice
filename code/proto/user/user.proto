@@ -4,6 +4,7 @@ option go_package = "./;userpb";
 
 service UserService {
     rpc Login(LoginRequest) returns (LoginResponse);
+    rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
 }
 
 message LoginRequest {
@@ -14,4 +15,12 @@ message LoginResponse {
     string access_token = 1;
     int32 expires_in    = 2;
     int32 user_id       = 3;
+}
+
+message CheckTokenRequest {
+    string access_token = 1;
+}
+
+message CheckTokenResponse {
+    int32 user_id = 1;
 }

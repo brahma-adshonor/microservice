@@ -4,7 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
-	"strconv"
+
+	"github.com/spf13/cast"
 
 	"github.com/brahma-adshonor/microservice/code/app/user/config"
 
@@ -41,7 +42,7 @@ func Login(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		token, err := s.TokenGenerator.GenerateToken(strconv.Itoa(int(userID)), config.TokenExpire)
+		token, err := s.TokenGenerator.GenerateToken(cast.ToString(userID), config.TokenExpire)
 		if err != nil {
 			s.Logger.Error("can't generate token", zap.Error(err))
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -52,10 +53,33 @@ func Login(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Request) {
 
 		_ = json.NewEncoder(w).Encode(&userpb.LoginResponse{
 			AccessToken: token,
-			ExpiresIn:   int32(config.TokenExpire.Seconds()),
+			ExpiresIn:   cast.ToInt32(config.TokenExpire.Seconds()),
 			UserId:      userID,
 		})
 
 	}
 
+}
+
+func CheckToken(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var request userpb.CheckTokenRequest
+		err := json.NewDecoder(r.Body).Decode(&request)
+		if err != nil {
+			s.Logger.Error("json decode error", zap.Error(err))
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		userID, err := s.TokenGenerator.ParseToken(request.AccessToken)
+		if err != nil {
+			s.Logger.Error("can't parse token", zap.Error(err))
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		_ = json.NewEncoder(w).Encode(&userpb.CheckTokenResponse{
+			UserId: cast.ToInt32(userID),
+		})
+	}
 }
