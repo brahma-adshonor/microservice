@@ -5,6 +5,7 @@ option go_package = "./;userpb";
 service UserService {
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
 
 message LoginRequest {
@@ -23,4 +24,12 @@ message CheckTokenRequest {
 
 message CheckTokenResponse {
     int32 user_id = 1;
+}
+
+message GetUserRequest {
+    int32 user_id = 1;
+}
+
+message GetUserResponse {
+    string name = 1;
 }

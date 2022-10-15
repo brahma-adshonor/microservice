@@ -33,3 +33,15 @@ func (t *User) ResolveUserID(ctx context.Context, openID string) (int32, error) 
 	}
 	return user.ID, nil
 }
+
+func (t *User) GetUser(ctx context.Context, userID int32) (*TUser, error) {
+	var user TUser
+	result := t.userDB.WithContext(ctx).Where("id = ?", userID).First(&user)
+	if result.RowsAffected == 1 {
+		return &user, nil
+	}
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return nil, nil
+}

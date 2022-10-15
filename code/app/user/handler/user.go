@@ -83,3 +83,26 @@ func CheckToken(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Reque
 		})
 	}
 }
+
+func GetUser(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var request userpb.GetUserRequest
+		err := json.NewDecoder(r.Body).Decode(&request)
+		if err != nil {
+			s.Logger.Error("json decode error", zap.Error(err))
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		user, err := s.User.GetUser(context.Background(), request.UserId)
+		if err != nil {
+			s.Logger.Error("can't get user", zap.Error(err))
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		_ = json.NewEncoder(w).Encode(&userpb.GetUserResponse{
+			Name: user.Username,
+		})
+	}
+}
