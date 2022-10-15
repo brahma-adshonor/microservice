@@ -2,7 +2,7 @@ CREATE TABLE `t_user`
 (
     `id`         int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `username`   varchar(255) NOT NULL COMMENT '用户名',
-    `password`   varchar(255) NOT NULL COMMENT '密码',
+    `open_id`   varchar(255) NOT NULL COMMENT 'openID',
     `phone`      varchar(255) NOT NULL COMMENT '手机号',
     `email`      varchar(255) NOT NULL COMMENT '邮箱',
     `gender`     int(1) DEFAULT 1 COMMENT '性别：0->未知；1->男；2->女',

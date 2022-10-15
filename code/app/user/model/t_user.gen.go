@@ -14,7 +14,7 @@ const TableNameTUser = "t_user"
 type TUser struct {
 	ID        int32     `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`                      // 主键id
 	Username  string    `gorm:"column:username;not null" json:"username"`                               // 用户名
-	Password  string    `gorm:"column:password;not null" json:"password"`                               // 密码
+	OpenID    string    `gorm:"column:open_id;not null" json:"open_id"`                                 // openID
 	Phone     string    `gorm:"column:phone;not null" json:"phone"`                                     // 手机号
 	Email     string    `gorm:"column:email;not null" json:"email"`                                     // 邮箱
 	Gender    int32     `gorm:"column:gender;default:1" json:"gender"`                                  // 性别：0->未知；1->男；2->女
