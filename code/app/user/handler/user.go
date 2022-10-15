@@ -106,3 +106,27 @@ func GetUser(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Request)
 		})
 	}
 }
+
+func Register(s *svc.ServiceContext) func(w http.ResponseWriter, r *http.Request) {
+	ctx := context.Background()
+	return func(w http.ResponseWriter, r *http.Request) {
+		var request userpb.RegisterRequest
+		err := json.NewDecoder(r.Body).Decode(&request)
+		if err != nil {
+			s.Logger.Error("json decode error", zap.Error(err))
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		err = s.User.Register(ctx, request.UserId, request.Name, request.Email, request.Gender)
+		if err != nil {
+			s.Logger.Error("can't register", zap.Error(err))
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		_ = json.NewEncoder(w).Encode(&userpb.RegisterResponse{
+			UserId: request.UserId,
+		})
+	}
+}

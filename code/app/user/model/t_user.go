@@ -45,3 +45,17 @@ func (t *User) GetUser(ctx context.Context, userID int32) (*TUser, error) {
 	}
 	return nil, nil
 }
+
+func (t *User) Register(ctx context.Context, userID int32, name, email string, gender int32) error {
+	user := TUser{
+		ID:       userID,
+		Username: name,
+		Email:    email,
+		Gender:   gender,
+	}
+	result := t.userDB.WithContext(ctx).Create(&user)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
