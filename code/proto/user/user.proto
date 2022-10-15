@@ -1,0 +1,55 @@
+syntax = "proto3";
+package user;
+option go_package = "./;userpb";
+
+service UserService {
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+}
+
+message LoginRequest {
+    string code = 1;
+}
+
+message LoginResponse {
+    string access_token = 1;
+    int32 expires_in    = 2;
+    int32 user_id       = 3;
+}
+
+message CheckTokenRequest {
+    string access_token = 1;
+}
+
+message CheckTokenResponse {
+    int32 user_id = 1;
+}
+
+message GetUserRequest {
+    int32 user_id = 1;
+}
+
+message GetUserResponse {
+    string name = 1;
+}
+
+message LoginoutRequest {
+    string access_token = 1;
+}
+
+message LoginoutResponse {
+    int32 user_id = 1;
+}
+
+message RegisterRequest {
+    int32 user_id = 1;
+    string name   = 2;
+    string email  = 3;
+    int32 gender  = 4;
+}
+
+message RegisterResponse {
+    int32 user_id = 1;
+}
